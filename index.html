@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ConTech.ai — Sustainable Construction Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── CSS Variables ─────────────────────────────────────────── */
+    :root {
+      --bg:          #0b0f0e;
+      --surface:     #111816;
+      --surface2:    #172019;
+      --border:      #1f2e29;
+      --green-dark:  #1A3C34;
+      --green-mid:   #2d6a4f;
+      --green:       #40916c;
+      --green-light: #74c69d;
+      --accent:      #b7e4c7;
+      --text:        #d8e8e2;
+      --muted:       #6b8f82;
+      --white:       #f0f7f4;
+      --mono:        'DM Mono', monospace;
+      --display:     'Bebas Neue', sans-serif;
+      --body:        'DM Sans', sans-serif;
+    }
+
+    /* ── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Noise grain overlay ───────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+    }
+
+    /* ── Grid blueprint lines ──────────────────────────────────── */
+    .blueprint-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      opacity: 0.25;
+      z-index: 0;
+    }
+
+    /* ── Nav ───────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      background: rgba(11,15,14,0.75);
+    }
+    .nav-logo {
+      font-family: var(--display);
+      font-size: 1.75rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+    .nav-logo span { color: var(--green-light); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      list-style: none;
+    }
+    .nav-links a:hover { color: var(--green-light); transition: color 0.2s; }
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--green-mid);
+      color: var(--green-light);
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--green-mid); color: var(--white); }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2.5rem 5rem;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Radial glow behind hero text */
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(45,106,79,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 2rem;
+      height: 1px;
+      background: var(--green);
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(4rem, 10vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      max-width: 1000px;
+      position: relative;
+      z-index: 2;
+    }
+    h1 .highlight {
+      color: var(--green-light);
+      position: relative;
+    }
+    /* Underline animation on highlight */
+    h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: lineReveal 0.8s ease forwards 1.2s;
+    }
+    @keyframes lineReveal { to { transform: scaleX(1); } }
+
+    .hero-sub {
+      margin-top: 2.5rem;
+      max-width: 560px;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+
+    .hero-actions {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+    .btn-primary {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      padding: 0.85rem 2rem;
+      background: var(--green);
+      color: var(--bg);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      text-transform: uppercase;
+    }
+    .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); }
+    .btn-ghost {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      text-transform: uppercase;
+    }
+    .btn-ghost:hover { border-color: var(--green); color: var(--green-light); }
+
+    /* Stat strip */
+    .hero-stats {
+      margin-top: 5rem;
+      display: flex;
+      gap: 3.5rem;
+      flex-wrap: wrap;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 2;
+    }
+    .stat-item {}
+    .stat-value {
+      font-family: var(--display);
+      font-size: 2.8rem;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-value span { color: var(--green-light); }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+    }
+
+    /* ── Section shared ────────────────────────────────────────── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2.5rem;
+    }
+    .section-tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      letter-spacing: 0.03em;
+      color: var(--white);
+      line-height: 1;
+      max-width: 800px;
+    }
+    .section-lead {
+      margin-top: 1.5rem;
+      max-width: 600px;
+      color: var(--muted);
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    /* ── Problem section ───────────────────────────────────────── */
+    #problem {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 4rem;
+      max-width: 1100px;
+    }
+    .problem-card {
+      padding: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--surface2);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s;
+    }
+    .problem-card:hover { border-color: var(--green-mid); }
+    .problem-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--green-mid);
+    }
+    .problem-number {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--green-mid);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .problem-card h3 {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+    .problem-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── Solution / Agents section ─────────────────────────────── */
+    #solution { max-width: 1200px; margin: 0 auto; }
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .agent-card {
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--surface);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .agent-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--green-mid);
+    }
+    .agent-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+    .agent-card h3 {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--green-light);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .agent-card p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ── Workflow ──────────────────────────────────────────────── */
+    #workflow {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .workflow-steps {
+      margin-top: 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 800px;
+    }
+    .workflow-step {
+      display: flex;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .workflow-step:last-child { border-bottom: none; }
+    .step-number {
+      font-family: var(--display);
+      font-size: 3.5rem;
+      color: var(--border);
+      line-height: 1;
+      min-width: 60px;
+      transition: color 0.3s;
+    }
+    .workflow-step:hover .step-number { color: var(--green-mid); }
+    .step-content h3 {
+      font-family: var(--display);
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .step-content p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── Architecture diagram strip ────────────────────────────── */
+    #architecture { overflow: hidden; }
+    .arch-container {
+      margin-top: 4rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--surface2);
+      padding: 2.5rem;
+    }
+    .arch-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .arch-layer {
+      display: flex;
+      align-items: stretch;
+      gap: 1px;
+    }
+    .layer-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      padding: 1rem 0.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      min-width: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .layer-boxes {
+      flex: 1;
+      display: flex;
+      gap: 1px;
+      flex-wrap: wrap;
+    }
+    .arch-box {
+      flex: 1;
+      min-width: 130px;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: background 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .arch-box:hover {
+      background: var(--green-dark);
+      border-color: var(--green-mid);
+    }
+    .arch-box .box-name {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--green-light);
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+    .arch-box .box-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+      font-weight: 300;
+    }
+    .arch-arrow {
+      display: flex;
+      justify-content: flex-start;
+      padding: 0.4rem 0 0.4rem 55px;
+      color: var(--green-mid);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Tech Stack ────────────────────────────────────────────── */
+    #stack {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      margin-top: 4rem;
+      border: 1px solid var(--border);
+    }
+    .stack-cell {
+      padding: 1.5rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .stack-cell:hover { background: var(--green-dark); }
+    .stack-cell-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .stack-cell-value {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── Roadmap ───────────────────────────────────────────────── */
+    #roadmap { max-width: 1100px; margin: 0 auto; }
+    .roadmap-track {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .phase-card {
+      padding: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--surface);
+      position: relative;
+    }
+    .phase-card.active {
+      border-color: var(--green-mid);
+      background: var(--green-dark);
+    }
+    .phase-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .phase-card h3 {
+      font-family: var(--display);
+      font-size: 1.35rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+    .phase-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .phase-card li {
+      font-size: 0.83rem;
+      color: var(--muted);
+      font-weight: 300;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .phase-card li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--green-mid);
+    }
+    .phase-weeks {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--green-mid);
+      margin-top: 1.25rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── CTA ───────────────────────────────────────────────────── */
+    #cta {
+      text-align: center;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+    #cta h2 { margin: 0 auto; }
+    #cta .section-lead { margin: 1.5rem auto; text-align: left; max-width: 480px; }
+    .cta-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    footer {
+      padding: 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-logo {
+      font-family: var(--display);
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+    .footer-logo span { color: var(--green); }
+    .footer-meta {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    /* ── Animations ────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.75s ease forwards;
+    }
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.5s; }
+    .delay-4 { animation-delay: 0.7s; }
+    .delay-5 { animation-delay: 0.9s; }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .problem-grid { grid-template-columns: 1fr; }
+      .agents-grid  { grid-template-columns: 1fr 1fr; }
+      .stack-grid   { grid-template-columns: 1fr 1fr; }
+      .roadmap-track { grid-template-columns: 1fr 1fr; }
+      .nav-links    { display: none; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.25rem; }
+      section { padding: 4rem 1.25rem; }
+      .hero-stats { gap: 2rem; }
+      .agents-grid  { grid-template-columns: 1fr; }
+      .stack-grid   { grid-template-columns: 1fr; }
+      .roadmap-track { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="blueprint-grid" aria-hidden="true"></div>
+
+  <!-- ── Navigation ─────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-logo">CONTECH<span>.AI</span></div>
+    <ul class="nav-links">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#solution">Agents</a></li>
+      <li><a href="#workflow">Workflow</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+    </ul>
+    <a href="https://github.com/ConTech-ai" target="_blank" class="nav-cta">GitHub ↗</a>
+  </nav>
+
+  <!-- ── Hero ───────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-tag fade-up">Agentic AI · Construction · Sustainability</div>
+    <h1 class="fade-up delay-1">
+      BUILDING THE<br>
+      <span class="highlight">INTELLIGENT</span><br>
+      SUSTAINABLE FUTURE
+    </h1>
+    <p class="hero-sub fade-up delay-2">
+      ConTech.ai deploys a <strong>coordinated network of autonomous AI agents</strong> to
+      make sustainability the default — not the afterthought — in construction projects worldwide.
+      Retrieval-augmented intelligence, real-time carbon tracking, BIM integration, and
+      automated regulatory compliance. All without manual expert intervention.
+    </p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="https://github.com/ConTech-ai" target="_blank" class="btn-primary">View on GitHub</a>
+      <a href="#solution" class="btn-ghost">Explore the System</a>
+    </div>
+    <div class="hero-stats fade-up delay-4">
+      <div class="stat-item">
+        <div class="stat-value">37<span>%</span></div>
+        <div class="stat-label">Global CO₂ from Construction</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">8<span>+</span></div>
+        <div class="stat-label">Autonomous AI Agents</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">85<span>%+</span></div>
+        <div class="stat-label">Target Recommendation Accuracy</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">0<span>×</span></div>
+        <div class="stat-label">Manual Expert Intervention</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Problem ─────────────────────────────────────────────────── -->
+  <section id="problem">
+    <div class="section-tag">The Problem</div>
+    <h2>CONSTRUCTION IS BROKEN. WE'RE FIXING THE INTELLIGENCE LAYER.</h2>
+    <p class="section-lead">
+      The construction industry generates nearly 40% of global carbon emissions.
+      Yet it remains one of the least digitised sectors — relying on manual workflows,
+      retrospective carbon reporting, and late-cycle compliance checks that are expensive to fix.
+    </p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-number">01 — Carbon Blindspot</div>
+        <h3>No Real-Time Visibility</h3>
+        <p>Architects and project managers lack access to material emission data and energy benchmarks at the moment design decisions are being made. Carbon tracking is almost entirely retrospective.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">02 — Manual Sustainability</div>
+        <h3>Slow, Inconsistent Research</h3>
+        <p>Applying LEED, BREEAM, and ISO 14001 standards requires deep domain expertise and hours of manual research — slowing down projects and introducing costly human error.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">03 — Late Compliance</div>
+        <h3>Compliance Checked Too Late</h3>
+        <p>Regulatory compliance is validated late in the design cycle, when changes are expensive and disruptive — rather than embedded proactively from the first design decision.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">04 — Fragmented Tooling</div>
+        <h3>No Unified System</h3>
+        <p>BIM software, IoT sensor feeds, sustainability databases, and compliance tools exist in separate silos. No single system connects them into a coherent, autonomous decision loop.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Solution / Agents ───────────────────────────────────────── -->
+  <section id="solution" style="max-width:1200px; margin:0 auto;">
+    <div class="section-tag">The Solution</div>
+    <h2>A MULTI-AGENT SYSTEM THAT THINKS, DECIDES & ACTS</h2>
+    <p class="section-lead">
+      ConTech.ai is not a single AI model. It is a coordinated network of specialist agents —
+      each owning a distinct function, communicating via structured message-passing,
+      and collectively optimizing for sustainability, cost, and regulatory compliance simultaneously.
+    </p>
+    <div class="agents-grid">
+      <div class="agent-card">
+        <div class="agent-icon">🔍</div>
+        <h3>RAG AI Agent</h3>
+        <p>Knowledge retrieval backbone. Semantically searches LEED standards, ASHRAE guidelines, BREEAM documentation, and material databases to ground every agent decision in real-time data.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🏗️</div>
+        <h3>Design Optimization Agent</h3>
+        <p>Generates climate-aware parametric building blueprints with optimal shading, insulation, airflow, and HVAC strategies. Learns from historical project data to refine future recommendations.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🌿</div>
+        <h3>Carbon Tracking Agent</h3>
+        <p>Ingests real-time or simulated IoT sensor data, calculates CO₂ per construction phase and material type, forecasts 6–12 month emissions, and autonomously triggers corrective workflows.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🧱</div>
+        <h3>Material Selection Agent</h3>
+        <p>Sources and ranks sustainable materials on three axes: carbon footprint and recyclability, cost and transport, and supply chain availability. Negotiates trade-offs with other agents automatically.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">📐</div>
+        <h3>BIM Modification Agent</h3>
+        <p>Applies AI-generated design decisions directly into Rhino + Grasshopper parametric models using rhino3dm, IfcOpenShell, and COMPAS. Validates structural constraints before committing any change.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">⚖️</div>
+        <h3>Regulatory Compliance Agent</h3>
+        <p>Holds global override authority. Uses NLP-powered rule matching to validate every design and material choice against LEED, BREEAM, and ISO 14001 — blocking any non-compliant output automatically.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">📊</div>
+        <h3>Reporting Agent</h3>
+        <p>Aggregates all agent outputs into structured sustainability reports, carbon footprint analyses, and certification-ready compliance documents formatted for LEED and BREEAM submission bodies.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🔀</div>
+        <h3>Query Router Agent</h3>
+        <p>System entry point and traffic controller. Classifies the intent of any natural language user query and delegates to one or more specialist agents — in parallel or in sequence as needed.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">📡</div>
+        <h3>IoT Data Platform</h3>
+        <p>Simulates or ingests real sensor streams via ThingsBoard, Node-RED, and Apache NiFi. Tracks energy consumption, CO₂ emission factors, water usage, temperature, and humidity per construction phase.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Workflow ─────────────────────────────────────────────────── -->
+  <section id="workflow">
+    <div class="section-tag">How It Works</div>
+    <h2>FROM QUERY TO CERTIFIED DESIGN. AUTONOMOUSLY.</h2>
+    <p class="section-lead">
+      A user submits one natural language request. The multi-agent system handles everything else —
+      retrieval, design, emission tracking, compliance validation, and report generation.
+    </p>
+    <div class="workflow-steps">
+      <div class="workflow-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <h3>Natural Language Query</h3>
+          <p>A construction engineer submits a goal via the chat interface — e.g., <em>"Design a net-zero carbon high-rise for a tropical climate."</em> The Query Router Agent classifies intent and delegates.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <h3>RAG Knowledge Retrieval</h3>
+          <p>The RAG Agent performs semantic search across sustainability standards, climate-specific case studies, ASHRAE guidelines, and supplier databases — delivering real-time context to every downstream agent.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <h3>AI Design Generation & BIM Update</h3>
+          <p>The Design Optimization Agent generates a parametric blueprint. The BIM Modification Agent applies it directly to the Rhino + Grasshopper model, with structural validation before any change is committed.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <h3>Carbon & Material Optimization</h3>
+          <p>The Carbon Tracking Agent evaluates the design's emissions profile. If thresholds are exceeded, it autonomously negotiates with the Material Selection Agent to identify lower-carbon alternatives within budget.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <h3>Compliance Validation & Report</h3>
+          <p>The Regulatory Compliance Agent cross-checks the finalized design against applicable standards. The Reporting Agent then produces the complete output: BIM model, carbon analysis, and certification-ready documents.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Architecture ─────────────────────────────────────────────── -->
+  <section id="architecture">
+    <div class="section-tag">Architecture</div>
+    <h2>FOUR LAYERS. ONE COHERENT SYSTEM.</h2>
+    <div class="arch-container">
+      <div class="arch-layers">
+        <!-- Layer 1 -->
+        <div class="arch-layer">
+          <div class="layer-label">User Layer</div>
+          <div class="layer-boxes">
+            <div class="arch-box">
+              <div class="box-name">contech-ui</div>
+              <div class="box-desc">React/Next.js chat interface and sustainability dashboard</div>
+            </div>
+            <div class="arch-box">
+              <div class="box-name">Query Router Agent</div>
+              <div class="box-desc">Intent classification and agent delegation</div>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow">↓ &nbsp;delegates to</div>
+        <!-- Layer 2 -->
+        <div class="arch-layer">
+          <div class="layer-label">AI Processing</div>
+          <div class="layer-boxes">
+            <div class="arch-box">
+              <div class="box-name">RAG AI Agent</div>
+              <div class="box-desc">Vector DB retrieval backbone</div>
+            </div>
+            <div class="arch-box">
+              <div class="box-name">Design Optimization</div>
+              <div class="box-desc">Climate-aware blueprint generation</div>
+            </div>
+            <div class="arch-box">
+              <div class="box-name">Carbon Tracking</div>
+              <div class="box-desc">Emissions calculation & forecasting</div>
+            </div>
+            <div class="arch-box">
+              <div class="box-name">Material Selection</div>
+              <div class="box-desc">Multi-objective material scoring</div>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow">↓ &nbsp;executes via</div>
+        <!-- Layer 3 -->
+        <div class="arch-layer">
+          <div class="layer-label">Execution & BIM</div>
+          <div class="layer-boxes">
+            <div class="arch-box">
+              <div class="box-name">BIM Modification Agent</div>
+              <div class="box-desc">Rhino + Grasshopper parametric updates</div>
+            </div>
+            <div class="arch-box">
+              <div class="box-name">IoT Data Platform</div>
+              <div class="box-desc">Sensor simulation via ThingsBoard, Node-RED</div>
+            </div>
+          </div>
+        </div>
+        <div class="arch-arrow">↓ &nbsp;validated by</div>
+        <!-- Layer 4 -->
+        <div class="arch-layer">
+          <div class="layer-label">Compliance</div>
+          <div class="layer-boxes">
+            <div class="arch-box">
+              <div class="box-name">Regulatory Compliance Agent</div>
+              <div class="box-desc">LEED / BREEAM / ISO 14001 override authority</div>
+            </div>
+            <div class="arch-box">
+              <div class="box-name">Reporting Agent</div>
+              <div class="box-desc">Certification-ready sustainability reports</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Tech Stack ───────────────────────────────────────────────── -->
+  <section id="stack">
+    <div class="section-tag">Technology Stack</div>
+    <h2>BUILT ON PROVEN OPEN-SOURCE FOUNDATIONS</h2>
+    <div class="stack-grid">
+      <div class="stack-cell">
+        <div class="stack-cell-label">LLM & RAG</div>
+        <div class="stack-cell-value">OpenAI GPT-4<br>LangChain · LlamaIndex</div>
+      </div>
+      <div class="stack-cell">
+        <div class="stack-cell-label">Vector Database</div>
+        <div class="stack-cell-value">FAISS · ChromaDB<br>Weaviate · Pinecone</div>
+      </div>
+      <div class="stack-cell">
+        <div class="stack-cell-label">BIM Integration</div>
+        <div class="stack-cell-value">rhino3dm · IfcOpenShell<br>COMPAS · ghpython</div>
+      </div>
+      <div class="stack-cell">
+        <div class="stack-cell-label">IoT / Sensors</div>
+        <div class="stack-cell-value">ThingsBoard · Node-RED<br>Apache NiFi · Paho-MQTT</div>
+      </div>
+      <div class="stack-cell">
+        <div class="stack-cell-label">Predictive ML</div>
+        <div class="stack-cell-value">Scikit-learn · PyCaret<br>Pandas</div>
+      </div>
+      <div class="stack-cell">
+        <div class="stack-cell-label">NLP Compliance</div>
+        <div class="stack-cell-value">SpaCy<br>Hugging Face Transformers</div>
+      </div>
+      <div class="stack-cell">
+        <div class="stack-cell-label">Backend / API</div>
+        <div class="stack-cell-value">FastAPI · Flask<br>PostgreSQL · MongoDB</div>
+      </div>
+      <div class="stack-cell">
+        <div class="stack-cell-label">Frontend & Deploy</div>
+        <div class="stack-cell-value">React · Next.js<br>Docker · Kubernetes</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Roadmap ──────────────────────────────────────────────────── -->
+  <section id="roadmap" style="max-width:1100px; margin:0 auto;">
+    <div class="section-tag">Development Roadmap</div>
+    <h2>28 WEEKS TO FULL AUTONOMY</h2>
+    <div class="roadmap-track">
+      <div class="phase-card active">
+        <div class="phase-label">Phase 1 · Active</div>
+        <h3>Research & Feasibility</h3>
+        <ul>
+          <li>Compile LEED, BREEAM, ISO 14001 datasets</li>
+          <li>Evaluate LLM + RAG stack</li>
+          <li>Confirm BIM integration path</li>
+          <li>Assess IoT simulation feasibility</li>
+        </ul>
+        <div class="phase-weeks">Weeks 1 – 4</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Phase 2</div>
+        <h3>Core Agent Development</h3>
+        <ul>
+          <li>RAG Agent with vector DB indexing</li>
+          <li>Design Optimization Agent</li>
+          <li>Carbon Tracking Agent</li>
+          <li>IoT Data Platform & UI MVP</li>
+        </ul>
+        <div class="phase-weeks">Weeks 5 – 12</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Phase 3</div>
+        <h3>Integration & Deployment</h3>
+        <ul>
+          <li>BIM Modification Agent</li>
+          <li>Material Selection Agent</li>
+          <li>Compliance + Reporting Agents</li>
+          <li>End-to-end PoC validation</li>
+        </ul>
+        <div class="phase-weeks">Weeks 13 – 20</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Phase 4</div>
+        <h3>Optimization & Autonomy</h3>
+        <ul>
+          <li>Autonomous procurement decisions</li>
+          <li>6–12 month carbon forecasting</li>
+          <li>Multi-project scaling</li>
+          <li>Sustainable material marketplace</li>
+        </ul>
+        <div class="phase-weeks">Weeks 21 – 28</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ──────────────────────────────────────────────────────── -->
+  <section id="cta">
+    <div class="section-tag">Get Involved</div>
+    <h2>OPEN SOURCE. OPEN TO BUILDERS.</h2>
+    <p class="section-lead" style="text-align:center;">
+      ConTech.ai is being built in the open under MIT license.
+      Every agent repository is public and welcoming contributions from
+      engineers, sustainability specialists, and construction technologists.
+    </p>
+    <div class="cta-links">
+      <a href="https://github.com/ConTech-ai" target="_blank" class="btn-primary">View the GitHub Org ↗</a>
+      <a href="mailto:contech.ai@outlook.com" class="btn-ghost">Contact the Team</a>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-logo">CONTECH<span>.AI</span></div>
+    <div class="footer-meta">MIT License · contech.ai@outlook.com · github.com/ConTech-ai</div>
+    <div class="footer-meta">Making sustainability the default in construction.</div>
+  </footer>
+
+</body>
+</html>

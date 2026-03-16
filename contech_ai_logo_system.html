@@ -1,0 +1,434 @@
+
+<style>
+  :root {
+    --bg: #0b0f0e;
+    --green: #40916c;
+    --green-light: #74c69d;
+    --green-mid: #2d6a4f;
+    --green-dark: #1A3C34;
+    --border: #1f2e29;
+    --muted: #6b8f82;
+    --white: #f0f7f4;
+    --mono: 'DM Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+
+  body { background: transparent; margin: 0; padding: 0; }
+
+  .logo-system {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    font-family: var(--mono), monospace;
+  }
+
+  .section-header {
+    font-family: var(--mono), monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 18px 28px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-cell {
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    border-right: 1px solid var(--border);
+    flex: 1;
+  }
+  .logo-cell:last-child { border-right: none; }
+
+  .cell-label {
+    font-family: var(--mono), monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* Dark bg variant cells */
+  .cell-dark { background: var(--bg); }
+  .cell-mid  { background: #0f1a17; }
+  .cell-light { background: #f0f7f4; }
+
+  /* Favicon strip */
+  .favicon-strip {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 36px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .favicon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .favicon-label {
+    font-family: var(--mono), monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* Color palette strip */
+  .palette-strip {
+    display: flex;
+    padding: 24px 28px;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+  }
+  .swatch-block {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+  }
+  .swatch-label {
+    font-family: var(--mono), monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* Usage note */
+  .usage-row {
+    padding: 20px 28px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+  }
+  .usage-tag {
+    font-family: var(--mono), monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--green-light);
+    text-transform: uppercase;
+    background: var(--green-dark);
+    border: 1px solid var(--border);
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+</style>
+
+<div class="logo-system">
+
+  <!-- ── SECTION: Primary Logo ─────────────────────────────── -->
+  <div class="section-header">01 — Primary Logo Lockup</div>
+  <div class="logo-row">
+
+    <!-- DARK BG: Full logo -->
+    <div class="logo-cell cell-dark">
+      <svg width="280" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg">
+        <!-- Mark: C-frame, 52×52 -->
+        <!-- Outer frame (3 sides of a square = "C") -->
+        <!-- Left vertical beam -->
+        <rect x="4" y="8" width="8" height="52" rx="2" fill="#40916c"/>
+        <!-- Bottom horizontal beam -->
+        <rect x="4" y="52" width="46" height="8" rx="2" fill="#40916c"/>
+        <!-- Top horizontal beam — accent color (AI layer) -->
+        <rect x="4" y="8" width="46" height="8" rx="2" fill="#74c69d"/>
+
+        <!-- Inner structural crossbar (gives depth, like a real frame) -->
+        <rect x="4" y="32" width="30" height="4" rx="1.5" fill="#2d6a4f"/>
+
+        <!-- Node joints (circles at intersections) -->
+        <!-- Top-left corner node -->
+        <circle cx="8" cy="12" r="5.5" fill="#0b0f0e" stroke="#74c69d" stroke-width="2"/>
+        <circle cx="8" cy="12" r="2" fill="#74c69d"/>
+        <!-- Top-right end node (open end of C) -->
+        <circle cx="46" cy="12" r="5.5" fill="#0b0f0e" stroke="#74c69d" stroke-width="1.5"/>
+        <circle cx="46" cy="12" r="1.5" fill="#40916c"/>
+        <!-- Bottom-left corner node -->
+        <circle cx="8" cy="56" r="5.5" fill="#0b0f0e" stroke="#40916c" stroke-width="2"/>
+        <circle cx="8" cy="56" r="2" fill="#40916c"/>
+        <!-- Bottom-right end node -->
+        <circle cx="46" cy="56" r="5.5" fill="#0b0f0e" stroke="#40916c" stroke-width="1.5"/>
+        <circle cx="46" cy="56" r="1.5" fill="#2d6a4f"/>
+        <!-- Mid crossbar right-end node -->
+        <circle cx="30" cy="34" r="3.5" fill="#0b0f0e" stroke="#2d6a4f" stroke-width="1.5"/>
+
+        <!-- Wordmark -->
+        <text x="72" y="44"
+          font-family="'Bebas Neue', 'Impact', sans-serif"
+          font-size="38"
+          letter-spacing="2"
+          fill="#f0f7f4"
+          dominant-baseline="auto">CONTECH</text>
+        <text x="240" y="44"
+          font-family="'Bebas Neue', 'Impact', sans-serif"
+          font-size="38"
+          letter-spacing="0"
+          fill="#74c69d"
+          dominant-baseline="auto">.AI</text>
+      </svg>
+      <div class="cell-label">Primary · Dark Background</div>
+    </div>
+
+    <!-- LIGHT BG: Full logo -->
+    <div class="logo-cell cell-light">
+      <svg width="280" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="8" width="8" height="52" rx="2" fill="#2d6a4f"/>
+        <rect x="4" y="52" width="46" height="8" rx="2" fill="#2d6a4f"/>
+        <rect x="4" y="8" width="46" height="8" rx="2" fill="#40916c"/>
+        <rect x="4" y="32" width="30" height="4" rx="1.5" fill="#1A3C34"/>
+
+        <circle cx="8" cy="12" r="5.5" fill="#f0f7f4" stroke="#40916c" stroke-width="2"/>
+        <circle cx="8" cy="12" r="2" fill="#40916c"/>
+        <circle cx="46" cy="12" r="5.5" fill="#f0f7f4" stroke="#2d6a4f" stroke-width="1.5"/>
+        <circle cx="46" cy="12" r="1.5" fill="#2d6a4f"/>
+        <circle cx="8" cy="56" r="5.5" fill="#f0f7f4" stroke="#2d6a4f" stroke-width="2"/>
+        <circle cx="8" cy="56" r="2" fill="#2d6a4f"/>
+        <circle cx="46" cy="56" r="5.5" fill="#f0f7f4" stroke="#2d6a4f" stroke-width="1.5"/>
+        <circle cx="46" cy="56" r="1.5" fill="#1A3C34"/>
+        <circle cx="30" cy="34" r="3.5" fill="#f0f7f4" stroke="#1A3C34" stroke-width="1.5"/>
+
+        <text x="72" y="44"
+          font-family="'Bebas Neue', 'Impact', sans-serif"
+          font-size="38" letter-spacing="2"
+          fill="#0b0f0e" dominant-baseline="auto">CONTECH</text>
+        <text x="240" y="44"
+          font-family="'Bebas Neue', 'Impact', sans-serif"
+          font-size="38" letter-spacing="0"
+          fill="#2d6a4f" dominant-baseline="auto">.AI</text>
+      </svg>
+      <div class="cell-label" style="color: #6b8f82;">Primary · Light Background</div>
+    </div>
+  </div>
+
+  <!-- ── SECTION: Icon Mark ─────────────────────────────────── -->
+  <div class="section-header">02 — Icon Mark (Standalone)</div>
+  <div class="logo-row">
+
+    <!-- Large icon -->
+    <div class="logo-cell cell-dark">
+      <svg width="96" height="96" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="6" width="10" height="52" rx="3" fill="#40916c"/>
+        <rect x="6" y="48" width="52" height="10" rx="3" fill="#40916c"/>
+        <rect x="6" y="6" width="52" height="10" rx="3" fill="#74c69d"/>
+        <rect x="6" y="29" width="34" height="5" rx="2" fill="#2d6a4f"/>
+
+        <circle cx="11" cy="11" r="7" fill="#0b0f0e" stroke="#74c69d" stroke-width="2.5"/>
+        <circle cx="11" cy="11" r="2.5" fill="#74c69d"/>
+        <circle cx="54" cy="11" r="7" fill="#0b0f0e" stroke="#74c69d" stroke-width="2"/>
+        <circle cx="54" cy="11" r="2" fill="#40916c"/>
+        <circle cx="11" cy="53" r="7" fill="#0b0f0e" stroke="#40916c" stroke-width="2.5"/>
+        <circle cx="11" cy="53" r="2.5" fill="#40916c"/>
+        <circle cx="54" cy="53" r="7" fill="#0b0f0e" stroke="#40916c" stroke-width="2"/>
+        <circle cx="54" cy="53" r="2" fill="#2d6a4f"/>
+        <circle cx="36" cy="31.5" r="5" fill="#0b0f0e" stroke="#2d6a4f" stroke-width="2"/>
+        <circle cx="36" cy="31.5" r="1.5" fill="#2d6a4f"/>
+      </svg>
+      <div class="cell-label">96px</div>
+    </div>
+
+    <!-- Medium icon -->
+    <div class="logo-cell cell-dark">
+      <svg width="56" height="56" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="6" width="10" height="52" rx="3" fill="#40916c"/>
+        <rect x="6" y="48" width="52" height="10" rx="3" fill="#40916c"/>
+        <rect x="6" y="6" width="52" height="10" rx="3" fill="#74c69d"/>
+        <rect x="6" y="29" width="34" height="5" rx="2" fill="#2d6a4f"/>
+        <circle cx="11" cy="11" r="7" fill="#0b0f0e" stroke="#74c69d" stroke-width="2.5"/>
+        <circle cx="11" cy="11" r="2.5" fill="#74c69d"/>
+        <circle cx="54" cy="11" r="7" fill="#0b0f0e" stroke="#74c69d" stroke-width="2"/>
+        <circle cx="54" cy="11" r="2" fill="#40916c"/>
+        <circle cx="11" cy="53" r="7" fill="#0b0f0e" stroke="#40916c" stroke-width="2.5"/>
+        <circle cx="11" cy="53" r="2.5" fill="#40916c"/>
+        <circle cx="54" cy="53" r="7" fill="#0b0f0e" stroke="#40916c" stroke-width="2"/>
+        <circle cx="54" cy="53" r="2" fill="#2d6a4f"/>
+        <circle cx="36" cy="31.5" r="5" fill="#0b0f0e" stroke="#2d6a4f" stroke-width="2"/>
+        <circle cx="36" cy="31.5" r="1.5" fill="#2d6a4f"/>
+      </svg>
+      <div class="cell-label">56px</div>
+    </div>
+
+    <!-- Small icon -->
+    <div class="logo-cell cell-dark">
+      <svg width="32" height="32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="6" width="10" height="52" rx="3" fill="#40916c"/>
+        <rect x="6" y="48" width="52" height="10" rx="3" fill="#40916c"/>
+        <rect x="6" y="6" width="52" height="10" rx="3" fill="#74c69d"/>
+        <rect x="6" y="29" width="34" height="5" rx="2" fill="#2d6a4f"/>
+        <circle cx="11" cy="11" r="7" fill="#0b0f0e" stroke="#74c69d" stroke-width="2.5"/>
+        <circle cx="11" cy="11" r="2.5" fill="#74c69d"/>
+        <circle cx="54" cy="11" r="7" fill="#0b0f0e" stroke="#74c69d" stroke-width="2"/>
+        <circle cx="54" cy="11" r="2" fill="#40916c"/>
+        <circle cx="11" cy="53" r="7" fill="#0b0f0e" stroke="#40916c" stroke-width="2.5"/>
+        <circle cx="11" cy="53" r="2.5" fill="#40916c"/>
+        <circle cx="54" cy="53" r="7" fill="#0b0f0e" stroke="#40916c" stroke-width="2"/>
+        <circle cx="54" cy="53" r="2" fill="#2d6a4f"/>
+        <circle cx="36" cy="31.5" r="5" fill="#0b0f0e" stroke="#2d6a4f" stroke-width="2"/>
+        <circle cx="36" cy="31.5" r="1.5" fill="#2d6a4f"/>
+      </svg>
+      <div class="cell-label">32px</div>
+    </div>
+
+    <!-- On light bg -->
+    <div class="logo-cell cell-light">
+      <svg width="72" height="72" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="6" width="10" height="52" rx="3" fill="#2d6a4f"/>
+        <rect x="6" y="48" width="52" height="10" rx="3" fill="#2d6a4f"/>
+        <rect x="6" y="6" width="52" height="10" rx="3" fill="#40916c"/>
+        <rect x="6" y="29" width="34" height="5" rx="2" fill="#1A3C34"/>
+        <circle cx="11" cy="11" r="7" fill="#f0f7f4" stroke="#40916c" stroke-width="2.5"/>
+        <circle cx="11" cy="11" r="2.5" fill="#40916c"/>
+        <circle cx="54" cy="11" r="7" fill="#f0f7f4" stroke="#2d6a4f" stroke-width="2"/>
+        <circle cx="54" cy="11" r="2" fill="#2d6a4f"/>
+        <circle cx="11" cy="53" r="7" fill="#f0f7f4" stroke="#2d6a4f" stroke-width="2.5"/>
+        <circle cx="11" cy="53" r="2.5" fill="#2d6a4f"/>
+        <circle cx="54" cy="53" r="7" fill="#f0f7f4" stroke="#1A3C34" stroke-width="2"/>
+        <circle cx="54" cy="53" r="2" fill="#1A3C34"/>
+        <circle cx="36" cy="31.5" r="5" fill="#f0f7f4" stroke="#1A3C34" stroke-width="2"/>
+        <circle cx="36" cy="31.5" r="1.5" fill="#1A3C34"/>
+      </svg>
+      <div class="cell-label" style="color:#6b8f82;">Light BG</div>
+    </div>
+  </div>
+
+  <!-- ── SECTION: Favicons ────────────────────────────────── -->
+  <div class="section-header">03 — Favicon Sizes</div>
+  <div class="favicon-strip">
+
+    <!-- 512px OG -->
+    <div class="favicon-item">
+      <svg width="80" height="80" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <rect width="512" height="512" rx="100" fill="#0b0f0e"/>
+        <rect x="68" y="68" width="88" height="408" rx="22" fill="#40916c"/>
+        <rect x="68" y="356" width="408" height="88" rx="22" fill="#40916c"/>
+        <rect x="68" y="68" width="408" height="88" rx="22" fill="#74c69d"/>
+        <rect x="68" y="228" width="258" height="42" rx="14" fill="#2d6a4f"/>
+        <circle cx="112" cy="112" r="54" fill="#0b0f0e" stroke="#74c69d" stroke-width="20"/>
+        <circle cx="112" cy="112" r="18" fill="#74c69d"/>
+        <circle cx="444" cy="112" r="54" fill="#0b0f0e" stroke="#74c69d" stroke-width="16"/>
+        <circle cx="444" cy="112" r="14" fill="#40916c"/>
+        <circle cx="112" cy="400" r="54" fill="#0b0f0e" stroke="#40916c" stroke-width="20"/>
+        <circle cx="112" cy="400" r="18" fill="#40916c"/>
+        <circle cx="444" cy="400" r="54" fill="#0b0f0e" stroke="#40916c" stroke-width="16"/>
+        <circle cx="444" cy="400" r="14" fill="#2d6a4f"/>
+        <circle cx="322" cy="249" r="38" fill="#0b0f0e" stroke="#2d6a4f" stroke-width="16"/>
+        <circle cx="322" cy="249" r="12" fill="#2d6a4f"/>
+      </svg>
+      <div class="favicon-label">512×512 (og-image)</div>
+    </div>
+
+    <!-- 192px -->
+    <div class="favicon-item">
+      <svg width="56" height="56" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+        <rect width="192" height="192" rx="38" fill="#0b0f0e"/>
+        <rect x="26" y="26" width="32" height="152" rx="8" fill="#40916c"/>
+        <rect x="26" y="134" width="152" height="32" rx="8" fill="#40916c"/>
+        <rect x="26" y="26" width="152" height="32" rx="8" fill="#74c69d"/>
+        <rect x="26" y="85" width="96" height="16" rx="5" fill="#2d6a4f"/>
+        <circle cx="42" cy="42" r="20" fill="#0b0f0e" stroke="#74c69d" stroke-width="7.5"/>
+        <circle cx="42" cy="42" r="6.5" fill="#74c69d"/>
+        <circle cx="166" cy="42" r="20" fill="#0b0f0e" stroke="#74c69d" stroke-width="6"/>
+        <circle cx="166" cy="42" r="5" fill="#40916c"/>
+        <circle cx="42" cy="150" r="20" fill="#0b0f0e" stroke="#40916c" stroke-width="7.5"/>
+        <circle cx="42" cy="150" r="6.5" fill="#40916c"/>
+        <circle cx="166" cy="150" r="20" fill="#0b0f0e" stroke="#40916c" stroke-width="6"/>
+        <circle cx="166" cy="150" r="5" fill="#2d6a4f"/>
+        <circle cx="120" cy="93" r="14" fill="#0b0f0e" stroke="#2d6a4f" stroke-width="6"/>
+        <circle cx="120" cy="93" r="4.5" fill="#2d6a4f"/>
+      </svg>
+      <div class="favicon-label">192×192 (PWA)</div>
+    </div>
+
+    <!-- 32px -->
+    <div class="favicon-item">
+      <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="5" fill="#0b0f0e"/>
+        <rect x="4" y="4" width="5" height="24" rx="1.5" fill="#40916c"/>
+        <rect x="4" y="23" width="24" height="5" rx="1.5" fill="#40916c"/>
+        <rect x="4" y="4" width="24" height="5" rx="1.5" fill="#74c69d"/>
+        <circle cx="6.5" cy="6.5" r="3.5" fill="#0b0f0e" stroke="#74c69d" stroke-width="1.5"/>
+        <circle cx="27.5" cy="6.5" r="3.5" fill="#0b0f0e" stroke="#74c69d" stroke-width="1.2"/>
+        <circle cx="6.5" cy="25.5" r="3.5" fill="#0b0f0e" stroke="#40916c" stroke-width="1.5"/>
+        <circle cx="27.5" cy="25.5" r="3.5" fill="#0b0f0e" stroke="#40916c" stroke-width="1.2"/>
+      </svg>
+      <div class="favicon-label">32×32 (favicon)</div>
+    </div>
+
+    <!-- 16px -->
+    <div class="favicon-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <rect width="16" height="16" rx="2" fill="#0b0f0e"/>
+        <rect x="2" y="2" width="3" height="12" rx="1" fill="#40916c"/>
+        <rect x="2" y="11" width="12" height="3" rx="1" fill="#40916c"/>
+        <rect x="2" y="2" width="12" height="3" rx="1" fill="#74c69d"/>
+      </svg>
+      <div class="favicon-label">16×16 (browser tab)</div>
+    </div>
+  </div>
+
+  <!-- ── SECTION: Color Palette ──────────────────────────── -->
+  <div class="section-header">04 — Brand Color System</div>
+  <div class="palette-strip">
+    <div class="swatch">
+      <div class="swatch-block" style="background:#74c69d;"></div>
+      <div class="swatch-label">#74c69d<br>Accent</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#40916c;"></div>
+      <div class="swatch-label">#40916c<br>Primary</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#2d6a4f;"></div>
+      <div class="swatch-label">#2d6a4f<br>Mid</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#1A3C34;"></div>
+      <div class="swatch-label">#1A3C34<br>Dark</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#111816; border: 1px solid #1f2e29;"></div>
+      <div class="swatch-label">#111816<br>Surface</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#0b0f0e; border: 1px solid #1f2e29;"></div>
+      <div class="swatch-label">#0b0f0e<br>Background</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#f0f7f4;"></div>
+      <div class="swatch-label">#f0f7f4<br>White</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#6b8f82;"></div>
+      <div class="swatch-label">#6b8f82<br>Muted</div>
+    </div>
+  </div>
+
+  <!-- ── Usage notes ─────────────────────────────────────── -->
+  <div class="usage-row">
+    <span class="usage-tag">favicon.ico → 16×16 + 32×32 embedded</span>
+    <span class="usage-tag">apple-touch-icon → 180×180 variant</span>
+    <span class="usage-tag">og:image → 512×512 on dark card</span>
+    <span class="usage-tag">GitHub profile → 400×400 icon mark</span>
+    <span class="usage-tag">contech-ai.github.io → link tag in &lt;head&gt;</span>
+  </div>
+
+</div>
